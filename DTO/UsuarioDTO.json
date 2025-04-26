@@ -1,25 +1,25 @@
 {
   "usuarios": [
     {
-      "id": 5,
-      "nome": "Julia Silva",
-      "email": "julia.silva@example.com",
-      "decksCriados": 22,
+      "id": 9,
+      "nome": "Flavia Penas",
+      "email": "flavia.penas@example.com",
+      "decksCriados": 42,
       "dataCadastro": "2025-04-10T09:00:00Z"
     },
     {
-      "id": 6,
-      "nome": "Carlos Oliveira",
-      "email": "carlos.oliveira@example.com",
-      "decksCriados": 15,
-      "dataCadastro": "2025-04-12T14:30:00Z"
+      "id": 2,
+      "nome": "Bruna Pereira",
+      "email": "bruna.pereira@example.com",
+      "decksCriados": 14,
+      "dataCadastro": "2025-04-17T19:30:00Z"
     },
     {
-      "id": 7,
-      "nome": "Mariana Souza",
-      "email": "mariana.souza@example.com",
-      "decksCriados": 30,
-      "dataCadastro": "2025-04-15T11:45:00Z"
+      "id": 1,
+      "nome": "Maria Eduarda",
+      "email": "eduarda@example.com",
+      "decksCriados": 20,
+      "dataCadastro": "2025-20-13T31:45:00Z"
     }
   ]
 }
