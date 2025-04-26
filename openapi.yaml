@@ -1,0 +1,463 @@
+openapi: 3.0.1
+
+info:
+  title: MageStack API
+  version: "1.0.0"
+  description: |
+    Bem-vindo à MageStack API 🔮
+
+    Esta API facilita a criação, gerenciamento e compartilhamento de decks de Magic: The Gathering.
+    Funcionalidades:
+      - Cadastro e autenticação de usuários
+      - CRUD de decks (criar, ler, atualizar, deletar)
+      - Adição e remoção de cartas em decks
+      - Curtidas e comentários nos decks
+      - Estatísticas de uso
+
+  contact:
+    name: Repositório GitHub
+    email: contato@mtgdeckbuilder.com
+    url: https://github.com/DudaAraujo14/CP--JAVA.git
+
+
+tags:
+  - name: Decks
+    description: Operações de gerenciamento de decks
+  - name: Cartas
+    description: Operações relacionadas às cartas
+  - name: Usuários
+    description: Cadastro e perfil de usuários
+  - name: Autenticação
+    description: Login, logout e refresh de token
+  - name: Comentários
+    description: Comentários em decks
+  - name: Curtidas
+    description: Curtidas em decks
+  - name: Estatísticas
+    description: Relatórios e métricas da plataforma
+
+paths:
+  /decks:
+    get:
+      summary: Listar todos os decks
+      tags: [Decks]
+      responses:
+        '200':
+          description: Lista de decks retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '500':
+          description: Erro interno do servidor
+    post:
+      summary: Criar um novo deck
+      tags: [Decks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Deck criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '500':
+          description: Erro interno do servidor
+
+  /decks/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Obter um deck pelo ID
+      tags: [Decks]
+      responses:
+        '200':
+          description: Deck encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Deck não encontrado
+        '500':
+          description: Erro interno do servidor
+    put:
+      summary: Atualizar um deck existente
+      tags: [Decks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Deck atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '404':
+          description: Deck não encontrado
+        '500':
+          description: Erro interno do servidor
+    delete:
+      summary: Remover um deck
+      tags: [Decks]
+      responses:
+        '204':
+          description: Deck removido com sucesso (sem conteúdo)
+        '404':
+          description: Deck não encontrado
+        '500':
+          description: Erro interno do servidor
+
+  /decks/{id}/comentarios:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Listar comentários de um deck
+      tags: [Comentários]
+      responses:
+        '200':
+          description: Lista de comentários retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '404':
+          description: Deck não encontrado
+        '500':
+          description: Erro interno do servidor
+    post:
+      summary: Adicionar um comentário a um deck
+      tags: [Comentários]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Comentário criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '404':
+          description: Deck não encontrado
+        '500':
+          description: Erro interno do servidor
+
+  /usuarios:
+    get:
+      summary: Listar todos os usuários
+      tags: [Usuários]
+      responses:
+        '200':
+          description: Lista de usuários retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '500':
+          description: Erro interno do servidor
+    post:
+      summary: Criar um novo usuário
+      tags: [Usuários]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+
+  /usuarios/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Obter perfil de um usuário
+      tags: [Usuários]
+      responses:
+        '200':
+          description: Perfil encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Usuário não encontrado
+    put:
+      summary: Atualizar informações de um usuário
+      tags: [Usuários]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Usuário atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '404':
+          description: Usuário não encontrado
+        '500':
+          description: Erro interno do servidor
+    delete:
+      summary: Deletar um usuário
+      tags: [Usuários]
+      responses:
+        '204':
+          description: Usuário deletado com sucesso (sem conteúdo)
+        '404':
+          description: Usuário não encontrado
+        '500':
+          description: Erro interno do servidor
+
+  /cartas:
+    get:
+      summary: Listar todas as cartas disponíveis
+      tags: [Cartas]
+      responses:
+        '200':
+          description: Lista de cartas retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+
+  /cartas/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Buscar uma carta pelo ID
+      tags: [Cartas]
+      responses:
+        '200':
+          description: Carta encontrada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Carta não encontrada
+        '500':
+          description: Erro interno do servidor
+    put:
+      summary: Atualizar uma carta existente
+      tags: [Cartas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Carta atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '404':
+          description: Carta não encontrada
+        '500':
+          description: Erro interno do servidor
+    delete:
+      summary: Deletar uma carta
+      tags: [Cartas]
+      responses:
+        '204':
+          description: Carta deletada com sucesso (sem conteúdo)
+        '404':
+          description: Carta não encontrada
+        '500':
+          description: Erro interno do servidor
+
+  /comentarios:
+    post:
+      summary: Criar um novo comentário
+      tags: [Comentários]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Comentário criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+
+  /comentarios/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      summary: Atualizar um comentário
+      tags: [Comentários]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Comentário atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Requisição inválida
+        '404':
+          description: Comentário não encontrado
+        '500':
+          description: Erro interno do servidor
+    delete:
+      summary: Deletar um comentário
+      tags: [Comentários]
+      responses:
+        '204':
+          description: Comentário deletado com sucesso (sem conteúdo)
+        '404':
+          description: Comentário não encontrado
+        '500':
+          description: Erro interno do servidor
+
+  /auth/login:
+    post:
+      summary: Autenticar um usuário
+      tags: [Autenticação]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Login bem-sucedido
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Não autorizado
+
+  /auth/refresh:
+    post:
+      summary: Atualizar token de acesso
+      tags: [Autenticação]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Tokens atualizados com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /curtidas/{deckId}:
+    parameters:
+      - name: deckId
+        in: path
+        required: true
+        schema:
+          type: integer
+    post:
+      summary: Curtir um deck
+      tags: [Curtidas]
+      responses:
+        '200':
+          description: Deck curtido com sucesso
+        '404':
+          description: Deck não encontrado
+
+  /estatisticas:
+    get:
+      summary: Obter estatísticas gerais da plataforma
+      tags: [Estatísticas]
+      responses:
+        '200':
+          description: Estatísticas obtidas com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalUsuarios:
+                    type: integer
+                  totalDecks:
+                    type: integer
+                  totalCurtidas:
+                    type: integer
+                  totalComentarios:
+                    type: integer
