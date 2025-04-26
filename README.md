@@ -423,6 +423,7 @@ components:
               - quantidade
       required:
         - nome
+```
 
 ## 📑 Arquivo OpenAPI
 
